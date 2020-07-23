@@ -12,19 +12,29 @@ const [position, setPosition] = useState([])
 const lat = position.map(e => {return (
     [e.lat, e.longi,e.nom, e.description, e.image1, e.image2]
     )})
-    const [choix, setChoix] = useState('')
+const [meteo, setMeteo]= useState()
+const key = '6b46bc3f9cc6cbf3285bf5c60a2dcf78'
+
+const [meteoLat, setMeteoLat] = useState()
+const [meteoLon, setMeteoLon] = useState()
 
 console.log(lat)
-
 const getposition= () =>{
         Axios.get('http://localhost:5000/all')
             .then(res => setPosition((res.data)))
     }
 
+const getmeteo = () => {
+    Axios.get(`pro.openweathermap.org/data/2.5/forecast/hourly?lat=${meteoLat}&lon=${meteoLon}&appid=${key}`)
+    .then(res => console.log(res.data))
+}
+
+console.log(meteoLat)
+console.log(meteoLon)
 
     useEffect(() => {
         getposition()
-        
+        getmeteo()
     }, [])  
 
     return (
@@ -43,7 +53,7 @@ const getposition= () =>{
         />
 {lat.map(e => {
     return(
-    <Marker position={[e[0],e[1]]}>
+    <Marker onClick={(e)=> { return(setMeteoLat([e[1]]), setMeteoLon([e[0]]) )}} position={[e[0],e[1]]}>
     <Popup>{[e[2]]}<br/> 
     <Modal trigger={<button>Voir ce lieu ?</button>}>
     <Modal.Header>{[e[2]]}</Modal.Header>
@@ -53,6 +63,7 @@ const getposition= () =>{
         <Header>Présentation</Header>
         <p>
         {[e[3]]}
+        {meteo}
         </p>
       </Modal.Description>
     </Modal.Content>
