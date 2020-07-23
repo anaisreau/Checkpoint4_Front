@@ -3,16 +3,18 @@ import './Maps.css'
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet'
 import Axios from 'axios'
 import { latLng } from 'leaflet';
-
+import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
 
 
 function Maps () {
    
 const [position, setPosition] = useState([])
 const lat = position.map(e => {return (
-    [e.lat, e.longi]
+    [e.lat, e.longi,e.nom, e.description, e.image1, e.image2]
     )})
+    const [choix, setChoix] = useState('')
 
+console.log(lat)
 
 const getposition= () =>{
         Axios.get('http://localhost:5000/all')
@@ -39,10 +41,30 @@ const getposition= () =>{
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-{lat.map(e => {return(
-<Marker position={e}>
-      <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-    </Marker>)})}
+{lat.map(e => {
+    return(
+    <Marker position={[e[0],e[1]]}>
+    <Popup>{[e[2]]}<br/> 
+    <Modal trigger={<button>Voir ce lieu ?</button>}>
+    <Modal.Header>{[e[2]]}</Modal.Header>
+    <Modal.Content image>
+      <Image wrapped size='medium' src={[e[4]]} />
+      <Modal.Description>
+        <Header>Présentation</Header>
+        <p>
+        {[e[3]]}
+        </p>
+      </Modal.Description>
+    </Modal.Content>
+    <Modal.Actions>
+      <Button primary>
+        Proceed <Icon name='right chevron' />
+      </Button>
+    </Modal.Actions>
+  </Modal>
+  </Popup>
+    </Marker> 
+    )})}
 
    
                     
