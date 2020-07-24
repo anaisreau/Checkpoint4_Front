@@ -29,8 +29,8 @@
   
    #maph1{
      text-align: center;
-     font-size : xx-large;
-     color:black;
+     font-size : x-large;
+     color:green;
      text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
    }
   
@@ -40,3 +40,5 @@
      width: 200px;
      
    }
+
+   

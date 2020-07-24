@@ -21,7 +21,7 @@ const Login = () => {
         
         login(user).then(res => {
             if(res) {
-                history.push('/profile')
+                history.push('/Profile')
             }
             
         })
@@ -31,7 +31,7 @@ const Login = () => {
     return(
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='top'>
  <Grid.Column style={{ maxWidth: 450 }}>
-  <Header as='h2' color='teal' textAlign='center'>
+  <Header as='h2' color='green' textAlign='center'>
  Connectez vous à votre compte
   </Header>
 
@@ -57,7 +57,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button color='teal' fluid size='large' type='submit'>Login</Button>
+          <Button color='green' fluid size='large' type='submit'>Login</Button>
           </Segment>
           </Form>
           </Grid.Column>

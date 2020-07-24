@@ -24,7 +24,7 @@ let history = useHistory()
     }
 
     register(newUser).then(res => {
-      history.push(`/login`)
+      history.push(`/auth`)
     })
   }
 
@@ -52,7 +52,7 @@ let history = useHistory()
           onChange={(e) => setPassword(e.target.value)}
           placeholder='******'/>
     </Form.Field>
-    <Button type='submit'>Submit</Button>
+    <Button color='green' type='submit'>Submit</Button>
   </Form>
 
     )
