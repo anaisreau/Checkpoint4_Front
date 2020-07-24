@@ -18,10 +18,15 @@ const key = '6b46bc3f9cc6cbf3285bf5c60a2dcf78'
 const [meteoLat, setMeteoLat] = useState()
 const [meteoLon, setMeteoLon] = useState()
 
-console.log(lat)
+ useEffect(() => {
+        getposition()
+        getmeteo()
+    }, [])  
+    
+
 const getposition= () =>{
         Axios.get('http://localhost:5000/all')
-            .then(res => setPosition((res.data)))
+            .then(res => setPosition(res.data))
     }
 
 const getmeteo = () => {
@@ -29,20 +34,15 @@ const getmeteo = () => {
     .then(res => console.log(res.data))
 }
 
-console.log(meteoLat)
-console.log(meteoLon)
 
-    useEffect(() => {
-        getposition()
-        getmeteo()
-    }, [])  
+   
 
     return (
         
     <>
 
     <div id='mapHeader'>
-        <h1 id='maph1'>Cliquez sur la carte pour decouvrir les réserves</h1>
+        <h5 id='maph1'>Cliquez sur la carte pour decouvrir les réserves</h5>
  
     </div>
 
@@ -51,9 +51,9 @@ console.log(meteoLon)
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-{lat.map(e => {
+{position.map(e => {
     return(
-    <Marker onClick={(e)=> { return(setMeteoLat([e[1]]), setMeteoLon([e[0]]) )}} position={[e[0],e[1]]}>
+    <Marker onClick={(e)=>  {return (setMeteoLat([e[0]]), setMeteoLon([e[1]]))}}  position={[e[8],e[9]]}>
     <Popup>{[e[2]]}<br/> 
     <Modal trigger={<button>Voir ce lieu ?</button>}>
     <Modal.Header>{[e[2]]}</Modal.Header>
